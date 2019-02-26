@@ -103,7 +103,16 @@ INSERT INTO Planets_Races (planet_id, race_id) VALUES
 
 Seed `heroes` and associate them with planets and races
 ```sql
----TODO
+-- Delete existing data
+DELETE FROM heroes;
+-- RESET SERIAL PRIMARY KEY
+ALTER SEQUENCE heroes_id_seq RESTART WITH 1;
+-- SEED NEW DATA
+INSERT INTO Heroes (id, planet_id, race_id, alias, level) VALUES
+(1, 2, 2, 'Jim Raynor', 5),
+(2, 1, 1, 'Queen of Blades', 20),
+(3, 3, 3, 'Zeratul', 15),
+(4, 4, 2, 'Arcturus Mensk', 5);
 ```
 
 ## QUERIES
