@@ -116,6 +116,57 @@ INSERT INTO Heroes (id, planet_id, race_id, alias, level) VALUES
 ```
 
 ## QUERIES
+Basic Queries
+```sql
+-- Find all planets
+SELECT * FROM Planets;
+-- id |  name  | moons
+-- ----+--------+-------
+--  1 | Char   |     0
+--  2 | Earth  |     1
+--  3 | Aiur   |     6
+--  4 | Korhal |     3
+
+-- Find all races only display id and name
+SELECT id, name FROM Races;
+-- id |   name
+-- ----+----------
+--  1 | Zerg
+--  2 | Terran
+--  3 | Protoss
+--  4 | Xel Naga
+
+-- Find all heroes
+SELECT * FROM Heroes;
+-- id | planet_id | race_id |      alias      | level
+-- ----+-----------+---------+-----------------+-------
+--  1 |         2 |       2 | Jim Raynor      |     5
+--  2 |         1 |       1 | Queen of Blades |    20
+--  3 |         3 |       3 | Zeratul         |    15
+--  4 |         4 |       2 | Arcturus Mensk  |     5
+
+-- Find all Heroes level 10 and above only displaying alias as "Boss Hero"
+SELECT alias as "Boss Hero" , level FROM Heroes WHERE level > 10;
+--    Boss Hero    | level
+-- -----------------+-------
+-- Queen of Blades |    20
+-- Zeratul         |    15
+```
+
+INNER JOIN query: Race `has_many` Heroes
+```sql
+-- Find all heroes belonging to race:Terran
+SELECT * 
+FROM Heroes
+INNER JOIN Races
+ON Heroes.race_id = Races.id
+WHERE Races.name = 'Terran';
+-- id | planet_id | race_id |     alias      | level | id |  name  |  description
+-- ----+-----------+---------+----------------+-------+----+--------+---------------
+--  1 |         2 |       2 | Jim Raynor     |     5 |  2 | Terran | Marine hoorah
+--  4 |         4 |       2 | Arcturus Mensk |     5 |  2 | Terran | Marine hoorah
+```
+
 INNER JOIN query: Race `has_and_belongs_to_many` Planets
 ```sql
 -- Find all planets controlled by race: Zerg
